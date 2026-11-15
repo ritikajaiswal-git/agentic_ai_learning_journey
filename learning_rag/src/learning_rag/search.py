@@ -2,7 +2,10 @@ import os
 from dotenv import load_dotenv
 from src.learning_rag.vectorstore import FaissVectorStore
 from langchain_groq import ChatGroq
+#FAISS (Facebook AI Similarity Search) ek library hai jo numerical vectors (embeddings) ko store aur search karne
+#ke liye use hoti hai.
 
+#RAG mein iska main kaam hai: User ke question se related sabse relevant document chunks find karna
 # .env file se API keys aur environment variables load kar rhe hain
 load_dotenv()
 
