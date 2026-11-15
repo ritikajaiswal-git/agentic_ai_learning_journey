@@ -1,3 +1,58 @@
+MCP (Model Context Protocol) – Summary Notes
+MCP is an open standard that allows AI applications to connect with external tools, data, and services in a common way.
+1. Normal LangGraph Tool Calling
+- We define tools inside our Python project using @tool.
+- Store multiple tools in a list: tools = [add, multiply].
+- Pass these tools to the LangGraph agent.
+- The agent directly uses these tools.
+- No separate MCP server or client is required.
+2. MCP Tool Calling
+MCP follows a Client-Server architecture.
+- MCP Server: Provides tools using @mcp.tool().
+- MCP Client: Connects to the MCP server and discovers available tools.
+- LangGraph Agent: Receives those tools through the MCP client and uses them.
+Flow:
+MCP Server
+    ↓
+MCP Client
+    ↓
+get_tools()
+    ↓
+LangGraph Agent
+    ↓
+Uses the required tool
+
+
+3. Difference Between @tool and @mcp.tool()
+@tool	@mcp.tool()
+Creates a LangChain tool	Registers a tool on an MCP server
+Directly used in LangChain/LangGraph	Accessed through an MCP client
+Mostly app-specific integration	Can be reused by multiple MCP-compatible applications
+
+4. Why Do We Need MCP?
+Suppose we create a Math Server with two tools:
+- add()
+- multiply()
+We can connect this same server to:
+- LangGraph Agent
+- Claude Desktop
+- Other MCP-compatible applications
+We don't need to define the same tools separately in every application.
+5. Is a Separate MCP Server Compulsory?
+No.
+- If tools are only needed in your LangGraph project, normal @tool is sufficient.
+- If you want to expose and reuse tools across multiple AI applications, MCP is useful.
+6. Relationship Between LangChain, LangGraph, RAG and MCP
+Technology	Main purpose
+LangChain	Building applications using LLMs, prompts, tools, etc.
+LangGraph	Managing agent workflows and tool-calling loops
+RAG	Retrieving relevant information from external knowledge sources
+MCP	Standardized communication between AI applications and external tools/data
+
+Remember: MCP does not replace LangChain or LangGraph. It provides a standardized way for them to connect with external tools and services.
+
+
+
 uv init k bd uv venv
 # MCP (Model Context Protocol)
 
