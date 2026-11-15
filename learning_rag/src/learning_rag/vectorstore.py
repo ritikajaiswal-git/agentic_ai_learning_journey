@@ -24,12 +24,13 @@ class FaissVectorStore:
     # STEP 1: FAISS Vector Store initialize karna
     def __init__(
         self,
-        persist_dir: str = "faiss_store",
+        persist_dir: str = "faiss_store",#ye default value h agr object bnate wqt value ni doge to ye value use  hogi
         embedding_model: str = "all-MiniLM-L6-v2",
         chunk_size: int = 1000,
         chunk_overlap: int = 200
     ):
-
+           #ye avi constructor k part hi chlra,right side local variable h, ar left side self. kre k wo instance variablbn 
+        #bn gya h, object k sath in varible ko  use kr kste h
         self.persist_dir = persist_dir
 
         # FAISS index aur metadata ko permanently save karne ke liye folder
@@ -77,6 +78,7 @@ class FaissVectorStore:
         ]
 
         # Embeddings ko FAISS ke required float32 format mein convert karke store karna
+        #class k andr wale func ko class k andr call self. s krte h, bhr m object bna k obj, s krte h
         self.add_embeddings(
             np.array(embeddings).astype("float32"),
             metadatas
@@ -89,6 +91,7 @@ class FaissVectorStore:
 
 
     # STEP 3: Embeddings ko FAISS index mein add karna
+    #Socho FAISS index ek database jaisa storage structure hai, jisme numerical vectors rakhe jaate hain.
     def add_embeddings(
         self,
         embeddings: np.ndarray,
@@ -152,6 +155,8 @@ class FaissVectorStore:
 
         # STEP 1: User ki query ko numerical vector mein convert karna
             # FAISS text nahi, embeddings par similarity search karta hai
+        #model.encode sentence trnasformer clas ka andr k method h
+        #split_document recusivetextcharsplittter k andr ata h
             query_embedding = self.model.encode([query])
         
             # STEP 2: FAISS ke required float32 format mein convert karna
@@ -163,6 +168,8 @@ class FaissVectorStore:
             results = []
         
             # STEP 4: Retrieved vector ke index aur distance ko read karna
+        #idx means kon s vector m mila h, mtlb bht sara faiss index h n jo vectors ko store krte, dist mtlb query ar search kitne similar h, 
+        #indexflatl2 use hua h mtlb dist jitne km utne similar 
             for idx, dist in zip(I[0], D[0]):
         
                 # Invalid index ko skip karna
@@ -170,6 +177,7 @@ class FaissVectorStore:
                     continue
         
                 # Retrieved index ka corresponding metadata nikalna
+                #idx faiss ar metadata ki same hoti h
                 meta = self.metadata[idx]
         
                 # Search result mein index, distance aur original text store karna
