@@ -1,3 +1,12 @@
+#- mcp → Python ka MCP package.
+#- server → Is package ka server-related module.
+#- fastmcp → MCP server easily create karne ka interface.
+#- FastMCP → Server create karne wali class.
+#Hum FastMCP import kyun kar rahe hain?
+
+#Taaki hum easily apna MCP server bana sakein aur usme tools register kar sakein.
+
+
 from mcp.server.fastmcp import FastMCP
 mcp=FastMCP("Math")#math is a tool name
 
@@ -16,11 +25,21 @@ def multiple(a:int,b:int)->int:
     return a*b
 
 # Check whether this file is running directly
+#Ye Python ka concept hai.
+
+#Python mein jab hum koi file run karte hain, toh us file ka special variable __name__ hota hai.
+
+#Agar file directly run ho rahi hai, toh:
+#__name__ == "__main__"
+
+
+
+#True hota hai.
 if __name__ == "__main__":
 
 
     # Start MCP Server using stdio transport
-    mcp.run(transport="stdio")
+    mcp.run(transport="stdio") #mcp server strt hora h, cleint ar server k bich conversation stdio k through hogi
      # transport="stdio" argument server ko batata hai ki:
 
 # Standard input/output (stdin aur stdout) ka use karke
@@ -60,3 +79,11 @@ if __name__ == "__main__":
 # Remote services aur applications ke liye useful hai.
 # Terminal mein server run karne par HTTP endpoint/API service available hoti hai.
 # Iske liye HTTP server required hota hai.
+
+# Final difference
+# Situation	__name__	mcp.run()
+# python mathserver.py	"__main__"	Execute hoga
+# import mathserver	"mathserver"	Execute nahi hoga
+# Client config se python mathserver.py	"__main__"	Execute hoga
+
+# Yaad rakhna: Tumhare project mein client.py server ko import nahi karta, balki command aur args ki help se alag process mein run karta hai.
