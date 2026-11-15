@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
-from src.learning_rag.vectorstore import FaissVectorStore
+from src.learning_rag.vectorstore import FaissVectorStore # mtlb ye requirement file s ni aya h, jb hme kisi ar file ki class ko import krna hota
+#tb hm esa likhte
 from langchain_groq import ChatGroq
 #FAISS (Facebook AI Similarity Search) ek library hai jo numerical vectors (embeddings) ko store aur search karne
 #ke liye use hoti hai.
