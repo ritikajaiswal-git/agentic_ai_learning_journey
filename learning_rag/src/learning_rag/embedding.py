@@ -26,6 +26,8 @@ class EmbeddingPipeline:
     def chunk_documents(self, documents: List[Any]) -> List[Any]:
 
         # Documents ko defined size ke chunks mein split karne ke liye splitter
+        #recursive text splitter ek class h jiska object bnare () ese krke , spliteetr ibject bn gya, ab object s hm acccess krte h n kisi 
+        #class k functn to text_splitter uska hi function h ye inbuilt class ar func h
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.chunk_size,
             chunk_overlap=self.chunk_overlap,
@@ -54,7 +56,7 @@ class EmbeddingPipeline:
             print(f"[INFO] Generating embeddings for {len(texts)} chunks...")
         
             # Pre-trained SentenceTransformer model se text ko vectors mein convert kar rhe hain
-            embeddings = self.model.encode(texts, show_progress_bar=True)
+            embeddings = self.model.encode(texts, show_progress_bar=True) #self.model jo init method m h, sentencetrasformer k function h encode
         
             # Generated embeddings ka shape (number of chunks, vector dimensions) show karega
             print(f"[INFO] Embeddings shape: {embeddings.shape}")
